@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MelonMusicPlayer-WPF", "MelonMusicPlayer-WPF\MelonMusicPlayer-WPF.csproj", "{49F462FA-5F03-4D2E-B684-F25E9B14FE6A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MelonMusicPlayer", "MelonMusicPlayer\MelonMusicPlayer.csproj", "{49F462FA-5F03-4D2E-B684-F25E9B14FE6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
