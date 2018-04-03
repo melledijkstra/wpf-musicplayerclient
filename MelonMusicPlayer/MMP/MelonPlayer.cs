@@ -16,6 +16,14 @@ namespace MelonMusicPlayerWPF.MMP
         private Channel _channel;
         public MusicPlayer.MusicPlayerClient Client;
 
+        private static MelonPlayer _instance;
+
+        public static MelonPlayer Instance => _instance ?? (_instance = new MelonPlayer());
+
+        private bool _keepStateListening = true;
+
+        private MelonPlayer() {}
+
         public async void Connect(string hostIp, int hostPort)
         {
             Console.WriteLine(@"Connecting to {0}:{1}", hostIp, hostPort);
@@ -44,7 +52,7 @@ namespace MelonMusicPlayerWPF.MMP
 
         private async void ListenForStateChange(ChannelState state, Channel channel)
         {
-            while (true)
+            while (_keepStateListening)
             {
                 await channel.WaitForStateChangedAsync(state);
                 var changedState = channel.State;
