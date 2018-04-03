@@ -61,6 +61,8 @@ namespace MelonMusicPlayerWPF.UI
                     BtnConnect.IsEnabled = true;
                     Cursor = Cursors.Arrow;
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 

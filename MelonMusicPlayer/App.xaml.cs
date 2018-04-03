@@ -11,7 +11,7 @@ namespace MelonMusicPlayerWPF
 
         public App()
         {
-            melonPlayer = new MelonPlayer();
+            melonPlayer = MelonPlayer.Instance;
         }
     }
 }
