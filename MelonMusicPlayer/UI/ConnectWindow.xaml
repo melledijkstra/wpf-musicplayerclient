@@ -4,9 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="MelonMusicPlayer" Height="300" ResizeMode="NoResize" Width="366.059" WindowStartupLocation="CenterOwner">
-    <Grid>
-        <TextBox Name="TbIP" Margin="0,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" HorizontalAlignment="Center" Padding="5"/>
-        <Button Name="BtnConnect" Content="CONNECT" HorizontalAlignment="Center" Margin="0,50,0,0" Width="120" Height="36" Background="#FF148949" Foreground="White" Click="btnConnect_Click" VerticalAlignment="Center"/>
-    </Grid>
+        Title="MelonMusicPlayer" Height="300" ResizeMode="NoResize" Width="350" WindowStartupLocation="CenterScreen">
+    <Border Padding="20">
+        <StackPanel>
+
+            <Label>IP Address:</Label>
+            <TextBox DockPanel.Dock="Top"
+                     Name="TbIP" Padding="5" />
+
+            <Button DockPanel.Dock="Bottom" Height="70"
+                    FontSize="15"
+                    Name="BtnConnect"
+                    Margin="0 20"
+                    Content="CONNECT" Background="#FF148949" Foreground="White" Command="{Binding ConnectCommand}" />
+
+        </StackPanel>
+    </Border>
 </Window>

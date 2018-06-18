@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using Grpc.Core;
 using MelonMusicPlayerWPF.MMP;
+using MelonMusicPlayerWPF.MVVM;
 using ToastNotifications;
 using ToastNotifications.Lifetime;
 using ToastNotifications.Messages;
@@ -15,9 +16,13 @@ namespace MelonMusicPlayerWPF.UI
         private readonly App _application;
         private readonly Notifier _notifier;
 
+        public DelegateCommand ConnectCommand { get; }
+
         public ConnectWindow()
         {
             InitializeComponent();
+            ConnectCommand = new DelegateCommand(Connect);
+            DataContext = this;
             TbIP.Text = (string)Properties.Settings.Default["HostIP"];
             _application = (App) Application.Current;
             _application.melonPlayer.OnStateChange += OnStateChange;
@@ -66,7 +71,7 @@ namespace MelonMusicPlayerWPF.UI
             }
         }
 
-        private void btnConnect_Click(object sender, RoutedEventArgs e)
+        private void Connect()
         {
             // disable button & show waiting cursor to prevent more calls
             Cursor = Cursors.Wait;
@@ -75,10 +80,12 @@ namespace MelonMusicPlayerWPF.UI
             Properties.Settings.Default["HostIP"] = TbIP.Text;
             Properties.Settings.Default.Save();
             // try to connect to the musicplayer
+            Console.WriteLine("Connecting...");
             _application.melonPlayer.Connect(
                 (string)Properties.Settings.Default["HostIP"],
                 (int)Properties.Settings.Default["Port"]
             );
         }
+
     }
 }

@@ -90,8 +90,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="MMP\Models\Protoble.cs" />
+    <Compile Include="MVVM\DashboardViewModel.cs" />
     <Compile Include="MVVM\DelegateCommand.cs" />
-    <Compile Include="MVVM\ObservableObject.cs" />
+    <Compile Include="MVVM\Observable.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="UI\DashboardWindow.xaml.cs">
@@ -101,6 +102,10 @@
       <DependentUpon>ConnectWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UI\Icons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MMP\Grpc\Mmp.cs" />
@@ -136,7 +141,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="images\no_cover.jpg" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="app_logo_large_icon.ico" />
   </ItemGroup>

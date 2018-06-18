@@ -4,24 +4,31 @@ using System.Threading.Tasks;
 using Grpc;
 using Grpc.Core;
 using MelonMusicPlayerWPF.MMP.Models;
+using MelonMusicPlayerWPF.MVVM;
 using DateTime = System.DateTime;
 
 namespace MelonMusicPlayerWPF.MMP
 {
-    public class MelonPlayer
+    public class MelonPlayer : Observable
     {
         public event OnStateChange OnStateChange;
 
         private List<AlbumModel> _albums;
         private Channel _channel;
-        public MusicPlayer.MusicPlayerClient Client;
+        public MusicPlayer.MusicPlayerClient MPlayerClient;
 
-        private static MelonPlayer _instance;
-
-        public static MelonPlayer Instance => _instance ?? (_instance = new MelonPlayer());
-
+        /// <summary>
+        /// Flag to keep checking if the state changes
+        /// </summary>
         private bool _keepStateListening = true;
 
+        private static MelonPlayer _instance;
+        public static MelonPlayer Instance => _instance ?? (_instance = new MelonPlayer());
+
+        /// <summary>
+        /// Prevents a default instance of the <see cref="MelonPlayer"/> class from being created.
+        /// Use <see cref="Instance"/> for retrieving the singleton instance of this class
+        /// </summary>
         private MelonPlayer() {}
 
         public async void Connect(string hostIp, int hostPort)
@@ -46,7 +53,7 @@ namespace MelonMusicPlayerWPF.MMP
 
             if (_channel.State == ChannelState.Ready)
             {
-                Client = new MusicPlayer.MusicPlayerClient(_channel);
+                MPlayerClient = new MusicPlayer.MusicPlayerClient(_channel);
             }
         }
 

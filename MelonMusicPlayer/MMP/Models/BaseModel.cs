@@ -1,8 +1,9 @@
 ﻿using Google.Protobuf;
+using MelonMusicPlayerWPF.MVVM;
 
 namespace MelonMusicPlayerWPF.MMP.Models
 {
-    internal abstract class BaseModel : IProtoble
+    internal abstract class BaseModel : Observable, IProtoble
     {
         protected long ID;
 

@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using Grpc;
+using MelonMusicPlayerWPF.MVVM;
 
 namespace MelonMusicPlayerWPF.UI
 {
@@ -9,51 +10,24 @@ namespace MelonMusicPlayerWPF.UI
     /// </summary>
     public partial class DashboardWindow
     {
-        private App _application;
-
-        AlbumList albumList;
+        private DashboardViewModel VM;
 
         public DashboardWindow()
         {
             InitializeComponent();
             System.Console.WriteLine("Dashboard View created");
-
-            _application = (App) Application.Current;
-            DataContext = _application;
-            albumList = _application.melonPlayer.Client.RetrieveAlbumList(new MediaData());
-
-            AlbumList.ItemsSource = albumList.AlbumList_;
-        }
-
-        private void PlaySong(object sender, SelectionChangedEventArgs e)
-        {
-            if (e.AddedItems.Count <= 0) return;
-
-            if (e.AddedItems[0] is Song song)
-            {
-                System.Console.WriteLine(song);
-                _application.melonPlayer.Client.Play(new MediaControl
-                {
-                    State = MediaControl.Types.State.Play,
-                    SongId = song.Id
-                });
-            }
+            VM = new DashboardViewModel();
+            DataContext = VM;
         }
 
         private void ShowSongList(object sender, SelectionChangedEventArgs e)
         {
-            if (e.AddedItems.Count <= 0) return;
-            
-            if (e.AddedItems[0] is Album album)
-            {
-                System.Console.WriteLine(album);
-                SongList.ItemsSource = album.SongList;
-            }
+            VM.ShowSongList(sender, e);
         }
 
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        private void PlaySong(object sender, SelectionChangedEventArgs e)
         {
-            _application.melonPlayer.Client.Play(new MediaControl {State = MediaControl.Types.State.Pause});
+            VM.PlaySong(sender, e);
         }
     }
 }

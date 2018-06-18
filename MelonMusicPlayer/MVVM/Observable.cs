@@ -4,7 +4,7 @@ using MelonMusicPlayerWPF.Annotations;
 
 namespace MelonMusicPlayerWPF.MVVM
 {
-    class ObservableObject : INotifyPropertyChanged
+    public class Observable : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

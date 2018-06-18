@@ -3,35 +3,109 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MelonMusicPlayerWPF.UI"
+        xmlns:grpc="clr-namespace:Grpc"
+        xmlns:mvvm="clr-namespace:MelonMusicPlayerWPF.MVVM"
         mc:Ignorable="d"
-        Title="DashboardWindow" MinHeight="450" MinWidth="800">
+        Title="Melon Music Player" Icon="/images/no_cover.jpg" Height="500" Width="650" ResizeMode="NoResize"
+        d:DataContext="{d:DesignInstance Type=mvvm:DashboardViewModel}">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition MinWidth="20" Width="103*"/>
-            <ColumnDefinition MinWidth="20" Width="100*"/>
-            <ColumnDefinition Width="193*"/>
+            <ColumnDefinition MinWidth="150" Width="*" />
+            <ColumnDefinition MinWidth="150" Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="200" />
         </Grid.RowDefinitions>
-        <ListView x:Name="AlbumList" Grid.Column="0" Grid.Row="0" SelectionChanged="ShowSongList">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
+
+        <!-- TOP -->
+        <DockPanel Grid.Column="0" Grid.Row="0">
+            <Border Padding="20" Background="#303F9F" DockPanel.Dock="Top">
+                <Border.Resources>
+                    <Style TargetType="{x:Type Label}">
+                        <Setter Property="Foreground" Value="White" />
+                    </Style>
+                </Border.Resources>
+                <StackPanel DockPanel.Dock="Top">
+                    <Label Margin="5 10 5 5" FontSize="25" Content="{Binding LblTest}"></Label>
+                    <Label Margin="5" FontSize="15">Black Pepper</Label>
+                    <Label Margin="5" FontSize="15">The Polite</Label>
+                    <DockPanel Margin="5 5 10 5">
+                        <Label DockPanel.Dock="Left">0 / 0</Label>
+                        <Label DockPanel.Dock="Right">0:00 / 0:00</Label>
+                        <!-- Add dummy label in the middle so the second label floats to the right -->
+                        <Label />
+                    </DockPanel>
+                </StackPanel>
+            </Border>
+            <Border Padding="5" Background="#3F51B5">
+                <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center"
+                           DockPanel.Dock="Bottom">
+                    <WrapPanel.Resources>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="BorderThickness" Value="0" />
+                            <Setter Property="Margin" Value="15 0" />
+                            <Setter Property="Width" Value="25" />
+                            <Setter Property="Height" Value="25" />
+                        </Style>
+                        <Style TargetType="{x:Type Path}">
+                            <Setter Property="Stretch" Value="Uniform" />
+                            <Setter Property="Margin" Value="3" />
+                        </Style>
+                    </WrapPanel.Resources>
+                    <Button Background="Transparent" Content="{StaticResource VecShuffle}" />
+                    <Button Background="Transparent" Content="{StaticResource VecSkipPrevious}" Command="{Binding PreviousCommand}" />
+                    <Button Background="Transparent" Content="{StaticResource VecPlay}" Command="{Binding PlayCommand}" />
+                    <Button Background="Transparent" Content="{StaticResource VecSkipNext}" Command="{Binding NextCommand}" />
+                    <Button Background="Transparent" Content="{StaticResource VecRepeat}" />
+                </WrapPanel>
+            </Border>
+        </DockPanel>
+
+        <Border Grid.Column="1" Grid.Row="0">
+            <Border.Background>
+                <ImageBrush ImageSource="/images/no_cover.jpg" Stretch="UniformToFill" />
+            </Border.Background>
+        </Border>
+
+        <!-- MIDDLE (slider) -->
+        <Slider Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" 
+                Background="#C11872" 
+                Foreground="#FF1879" />
+
+        <!-- BOTTOM -->
+        
+        <!-- ALBUM LIST -->
+        <ListView x:Name="AlbumList" Grid.Column="0" Grid.Row="2" SelectionChanged="ShowSongList"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding AlbumList}">
+            <ListView.ItemTemplate>
+                <DataTemplate DataType="{x:Type grpc:Album}">
+                    <Border Padding="5">
+                        <WrapPanel>
+                            <Image Margin="0 0 5 0" Height="30" Width="30" Source="/images/no_cover.jpg"></Image>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Title}" />
+                                <TextBlock Text="{Binding SongList.Count}"></TextBlock>
+                            </StackPanel>
+                        </WrapPanel>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
-        <ListView x:Name="SongList" Grid.Row="0" Grid.Column="1" SelectionChanged="PlaySong">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
+
+        <!-- SONG LIST -->
+        <ListView x:Name="SongList" Grid.Column="1" Grid.Row="2" SelectionChanged="PlaySong"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding SelectedItem.SongList, ElementName=AlbumList}">
+            <ListView.ItemTemplate>
+                <DataTemplate DataType="{x:Type grpc:Song}">
+                    <Border Padding="5">
+                        <WrapPanel>
+                            <TextBlock Text="{Binding Title}" />
+                        </WrapPanel>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
-        <WrapPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3">
-            <Button Click="ButtonBase_OnClick" Content="Play/Pause"/>
-        </WrapPanel>
     </Grid>
 </Window>
