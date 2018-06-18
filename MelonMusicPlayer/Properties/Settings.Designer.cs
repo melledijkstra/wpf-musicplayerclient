@@ -12,12 +12,12 @@ namespace MelonMusicPlayerWPF.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.6.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.7.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
-        private static MelonMusicPlayerWPF.Properties.Settings defaultInstance = ((MelonMusicPlayerWPF.Properties.Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new MelonMusicPlayerWPF.Properties.Settings())));
+        private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
         
-        public static MelonMusicPlayerWPF.Properties.Settings Default {
+        public static Settings Default {
             get {
                 return defaultInstance;
             }
@@ -37,7 +37,7 @@ namespace MelonMusicPlayerWPF.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1010")]
+        [global::System.Configuration.DefaultSettingValueAttribute("5505")]
         public int Port {
             get {
                 return ((int)(this["Port"]));

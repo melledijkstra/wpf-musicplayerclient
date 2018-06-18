@@ -48,13 +48,13 @@ namespace MelonMusicPlayerWPF.UI
 
         private void OnStateChange(object sender, StateChangeEventArgs args)
         {
-            _notifier.ClearMessages();
             _notifier.ShowInformation($"State changed to {args.State}");
             switch (args.State)
             {
                 case ChannelState.Ready:
                     // open dashboard window
                     _notifier.Dispose();
+                    _application.melonPlayer.OnStateChange -= OnStateChange; // unsubscribe the event
                     var dashboard = new DashboardWindow();
                     dashboard.Show();
                     Close();

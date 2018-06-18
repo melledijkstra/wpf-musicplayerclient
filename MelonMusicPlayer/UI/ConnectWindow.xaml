@@ -4,20 +4,27 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="MelonMusicPlayer" Height="300" ResizeMode="NoResize" Width="350" WindowStartupLocation="CenterScreen">
-    <Border Padding="20">
-        <StackPanel>
-
-            <Label>IP Address:</Label>
-            <TextBox DockPanel.Dock="Top"
-                     Name="TbIP" Padding="5" />
-
-            <Button DockPanel.Dock="Bottom" Height="70"
-                    FontSize="15"
-                    Name="BtnConnect"
-                    Margin="0 20"
-                    Content="CONNECT" Background="#FF148949" Foreground="White" Command="{Binding ConnectCommand}" />
-
-        </StackPanel>
+        Title="MelonMusicPlayer" Height="350" Width="300" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+    <Border Padding="40">
+        <Border.Background>
+            <LinearGradientBrush>
+                <GradientStop Color="#FF555555" Offset="0" />
+                <GradientStop Color="#FFFFFFFF" Offset="1" />
+            </LinearGradientBrush>
+        </Border.Background>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Padding="5">
+            <StackPanel Background="#FFF" VerticalAlignment="Center">
+                <StackPanel HorizontalAlignment="Center">
+                    <Label Content="IP Address" HorizontalAlignment="Left" Margin="0,10,0,10" />
+                    <TextBox Name="TbIP" TextWrapping="Wrap" VerticalAlignment="Center" Width="150"
+                             HorizontalAlignment="Left" Padding="5" />
+                </StackPanel>
+                <Button Height="50"
+                        FontSize="15"
+                        Name="BtnConnect"
+                        Margin="0 20 0 0"
+                        Content="CONNECT" Background="#FF148949" Foreground="White" Command="{Binding ConnectCommand}" />
+            </StackPanel>
+        </ScrollViewer>
     </Border>
 </Window>
