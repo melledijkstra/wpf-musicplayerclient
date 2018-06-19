@@ -6,8 +6,7 @@
         xmlns:grpc="clr-namespace:Grpc"
         xmlns:mvvm="clr-namespace:MelonMusicPlayerWPF.MVVM"
         mc:Ignorable="d"
-        Title="Melon Music Player" Icon="/images/no_cover.jpg" Height="500" Width="650" ResizeMode="NoResize"
-        d:DataContext="{d:DesignInstance Type=mvvm:DashboardViewModel}">
+        Title="Melon Music Player" Icon="/images/no_cover.jpg" Height="500" Width="650" ResizeMode="NoResize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition MinWidth="150" Width="*" />

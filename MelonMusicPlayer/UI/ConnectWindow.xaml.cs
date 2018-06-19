@@ -4,17 +4,12 @@ using System.Windows.Input;
 using Grpc.Core;
 using MelonMusicPlayerWPF.MMP;
 using MelonMusicPlayerWPF.MVVM;
-using ToastNotifications;
-using ToastNotifications.Lifetime;
-using ToastNotifications.Messages;
-using ToastNotifications.Position;
 
 namespace MelonMusicPlayerWPF.UI
 {
     public partial class ConnectWindow
     {
         private readonly App _application;
-        private readonly Notifier _notifier;
 
         public DelegateCommand ConnectCommand { get; }
 
@@ -26,34 +21,15 @@ namespace MelonMusicPlayerWPF.UI
             TbIP.Text = (string)Properties.Settings.Default["HostIP"];
             _application = (App) Application.Current;
             _application.melonPlayer.OnStateChange += OnStateChange;
-
-            // test notifications
-            _notifier = new Notifier(cfg =>
-            {
-                cfg.PositionProvider = new WindowPositionProvider(
-                    Application.Current.MainWindow,
-                    Corner.BottomCenter,
-                    0,
-                    0
-                );
-
-                cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
-                    TimeSpan.FromSeconds(3),
-                    MaximumNotificationCount.FromCount(5)
-                );
-
-                cfg.Dispatcher = Application.Current.Dispatcher;
-            });
         }
 
         private void OnStateChange(object sender, StateChangeEventArgs args)
         {
-            _notifier.ShowInformation($"State changed to {args.State}");
+            TxtStatus.Text = $"State: {args.State}";
             switch (args.State)
             {
                 case ChannelState.Ready:
                     // open dashboard window
-                    _notifier.Dispose();
                     _application.melonPlayer.OnStateChange -= OnStateChange; // unsubscribe the event
                     var dashboard = new DashboardWindow();
                     dashboard.Show();
@@ -80,7 +56,8 @@ namespace MelonMusicPlayerWPF.UI
             Properties.Settings.Default["HostIP"] = TbIP.Text;
             Properties.Settings.Default.Save();
             // try to connect to the musicplayer
-            Console.WriteLine("Connecting...");
+            TxtStatus.Text = "Connecting...";
+            TxtStatus.Visibility = Visibility.Visible;
             _application.melonPlayer.Connect(
                 (string)Properties.Settings.Default["HostIP"],
                 (int)Properties.Settings.Default["Port"]
